@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web components demo</title>
+  <style>
+    section {
+      background-color: antiquewhite;
+    }
+
+    code {
+      display: block;
+      background-color: darkgrey;
+    }
+
+    table,
+    td,
+    th {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+
+    button[data-action] {
+      background-color: aqua;
+      padding: 8px;
+      border-radius: 25%;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1>ssr with light dom</h1>
+    <p>
+      Има различни варианти, в които можем да ползваме web components. Един от най-простите варианти е да регистираме
+      custom element, който ползва light dom с предварително готов HTML (примерно при ползване на SSR).
+      Това практически не се различава много от нормален HTML.
+    </p>
+
+    <p>
+      <strong>Ползите, които виждам от такава имплементация са следните:</strong>
+    </p>
+    <ul>
+      <li>
+        разработваме компонент близко до познатата методология от React
+      </li>
+      <li>
+        разработваме компонент близко до познатата методология от React
+      </li>
+      <li>
+        логиката, която имплементираме се отнася за конкретна инстанция, тоест не се налага да селектираме всички
+        таблични елементи на страница и да добавяме логика към всеки
+      </li>
+      <li>
+        лесно се прилага към вече съществуващ код с компоненти от други библиотеки и глобални стилове
+      </li>
+    </ul>
+
+    <p>
+      <strong>Минусите остават същите, както при нормална употреба на HTML/CSS</strong>
+    </p>
+    <ul>
+      <li>
+        липсва разделяне на външни стилове от вътрешни (глобалните стилове оказват влияние върху елемента)
+      </li>
+      <li>
+        възможност за избиране на елементи и подмяна на структурата през JS
+      </li>
+      <li>
+        допълнителен минус при SSR варианта може да бъде необходимост от логика за направа на HTML на сървъра и клиента
+      </li>
+    </ul>
+
+    <p>
+      <button id="light-ssr">init</button>
+    </p>
+
+    <light-table page="1" pagesize="5">
+      <div>
+        <table data-e2e="table" class="sb-table">
+          <thead class="sb-table__head">
+            <tr>
+              <th class="sb-table__head-cell">ID</th>
+              <th class="sb-table__head-cell">Type</th>
+              <th class="sb-table__head-cell">Make</th>
+              <th class="sb-table__head-cell">Model</th>
+              <th class="sb-table__head-cell sb-table--align-end">Year</th>
+            </tr>
+          </thead>
+          <tbody class="sb-table__body">
+            <tr>
+              <td class="sb-table__body-cell">1</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make1</td>
+              <td class="sb-table__body-cell">Model1</td>
+              <td class="sb-table__body-cell sb-table--align-end">2000</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">2</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make2</td>
+              <td class="sb-table__body-cell">Model2</td>
+              <td class="sb-table__body-cell sb-table--align-end">2001</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">3</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make3</td>
+              <td class="sb-table__body-cell">Model3</td>
+              <td class="sb-table__body-cell sb-table--align-end">2002</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">4</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make4</td>
+              <td class="sb-table__body-cell">Model4</td>
+              <td class="sb-table__body-cell sb-table--align-end">2003</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">5</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make5</td>
+              <td class="sb-table__body-cell">Model5</td>
+              <td class="sb-table__body-cell sb-table--align-end">2004</td>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+        <button data-action="prev">prev</button>
+        <button data-action="next">next</button>
+      </div>
+      <div style="display: none;">
+        [{"id":1,"type":"SUV","make":"Make1","model":"Model1","year":2000},{"id":2,"type":"SUV","make":"Make2","model":"Model2","year":2001},{"id":3,"type":"SUV","make":"Make3","model":"Model3","year":2002},{"id":4,"type":"SUV","make":"Make4","model":"Model4","year":2003},{"id":5,"type":"SUV","make":"Make5","model":"Model5","year":2004},{"id":6,"type":"SUV","make":"Make6","model":"Model6","year":2005},{"id":7,"type":"SUV","make":"Make7","model":"Model7","year":2006},{"id":8,"type":"SUV","make":"Make8","model":"Model8","year":2007},{"id":9,"type":"SUV","make":"Make9","model":"Model9","year":2008},{"id":10,"type":"SUV","make":"Make10","model":"Model10","year":2009},{"id":11,"type":"SUV","make":"Make11","model":"Model11","year":2010},{"id":12,"type":"SUV","make":"Make12","model":"Model12","year":2011},{"id":13,"type":"SUV","make":"Make13","model":"Model13","year":2012},{"id":14,"type":"SUV","make":"Make14","model":"Model14","year":2013},{"id":15,"type":"SUV","make":"Make15","model":"Model15","year":2014},{"id":16,"type":"SUV","make":"Make16","model":"Model16","year":2015},{"id":17,"type":"SUV","make":"Make17","model":"Model17","year":2016},{"id":18,"type":"SUV","make":"Make18","model":"Model18","year":2017},{"id":19,"type":"SUV","make":"Make19","model":"Model19","year":2018},{"id":20,"type":"SUV","make":"Make20","model":"Model20","year":2019},{"id":21,"type":"SUV","make":"Make21","model":"Model21","year":2020},{"id":22,"type":"SUV","make":"Make22","model":"Model22","year":2021},{"id":23,"type":"SUV","make":"Make23","model":"Model23","year":2022},{"id":24,"type":"SUV","make":"Make24","model":"Model24","year":2023},{"id":25,"type":"SUV","make":"Make25","model":"Model25","year":2024},{"id":26,"type":"SUV","make":"Make26","model":"Model26","year":2025},{"id":27,"type":"SUV","make":"Make27","model":"Model27","year":2026}]
+      </div>
+    </light-table>
+  </section>
+
+  <section>
+    <h1>ssr with shadow dom</h1>
+    <p>
+      Друг вариант е да регистираме custom element, който ползва shadow dom с предварително готов HTML (примерно при
+      ползване на SSR).
+      Разликата тук е, че изолираме HTML от стандартното DOM съответно има някои ползи, но и минуси:
+    </p>
+
+    <p>
+      <strong>Ползи</strong>
+    </p>
+    <ul>
+      <li>
+        разработваме компонент близко до познатата методология от React
+      </li>
+      <li>
+        логиката, която имплементираме се отнася за конкретна инстанция, тоест не се налага да селектираме всички
+        таблични елементи на страница и да добавяме логика към всеки
+      </li>
+      <li>
+        отделяне на стиловете от глобалните, което премахва възможността за нежелание странични ефекти при добавяне на
+        нови стилове
+      </li>
+    </ul>
+
+    <p>
+      <strong>Минуси</strong>
+    </p>
+    <ul>
+      <li>
+        по-трудно се прилага към вече съществуващ код с компоненти от други библиотеки и глобални стилове, както се
+        вижда стиловете при инициализиране на този вариант се губят (това е плюс
+        за light dom)
+      </li>
+      <li>
+        shadow dom може да бъде отворен и затворен, като при отворен отново може да се прави промяна в структурата на
+        елемента
+      </li>
+      <li>
+        стиловете трябва да се вкарат в shadow dom, което означава доста голямо различие спрямо останалата разработка и
+        пакетиране на стилове (чист css без препроцесори)
+      </li>
+      <li>
+        допълнителен минус при SSR варианта може да бъде необходимост от логика за направа на HTML на сървъра и клиента
+      </li>
+    </ul>
+
+    <p>
+      <button id="shadow-ssr">init</button>
+    </p>
+
+    <shadow-table page="1" pagesize="5">
+      <div>
+        <table data-e2e="table" class="sb-table">
+          <thead class="sb-table__head">
+            <tr>
+              <th class="sb-table__head-cell">ID</th>
+              <th class="sb-table__head-cell">Type</th>
+              <th class="sb-table__head-cell">Make</th>
+              <th class="sb-table__head-cell">Model</th>
+              <th class="sb-table__head-cell sb-table--align-end">Year</th>
+            </tr>
+          </thead>
+          <tbody class="sb-table__body">
+            <tr>
+              <td class="sb-table__body-cell">1</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make1</td>
+              <td class="sb-table__body-cell">Model1</td>
+              <td class="sb-table__body-cell sb-table--align-end">2000</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">2</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make2</td>
+              <td class="sb-table__body-cell">Model2</td>
+              <td class="sb-table__body-cell sb-table--align-end">2001</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">3</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make3</td>
+              <td class="sb-table__body-cell">Model3</td>
+              <td class="sb-table__body-cell sb-table--align-end">2002</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">4</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make4</td>
+              <td class="sb-table__body-cell">Model4</td>
+              <td class="sb-table__body-cell sb-table--align-end">2003</td>
+            </tr>
+            <tr>
+              <td class="sb-table__body-cell">5</td>
+              <td class="sb-table__body-cell">SUV</td>
+              <td class="sb-table__body-cell">Make5</td>
+              <td class="sb-table__body-cell">Model5</td>
+              <td class="sb-table__body-cell sb-table--align-end">2004</td>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+        <button data-action="prev">prev</button>
+        <button data-action="next">next</button>
+      </div>
+      <div style="display: none;">
+        [{"id":1,"type":"SUV","make":"Make1","model":"Model1","year":2000},{"id":2,"type":"SUV","make":"Make2","model":"Model2","year":2001},{"id":3,"type":"SUV","make":"Make3","model":"Model3","year":2002},{"id":4,"type":"SUV","make":"Make4","model":"Model4","year":2003},{"id":5,"type":"SUV","make":"Make5","model":"Model5","year":2004},{"id":6,"type":"SUV","make":"Make6","model":"Model6","year":2005},{"id":7,"type":"SUV","make":"Make7","model":"Model7","year":2006},{"id":8,"type":"SUV","make":"Make8","model":"Model8","year":2007},{"id":9,"type":"SUV","make":"Make9","model":"Model9","year":2008},{"id":10,"type":"SUV","make":"Make10","model":"Model10","year":2009},{"id":11,"type":"SUV","make":"Make11","model":"Model11","year":2010},{"id":12,"type":"SUV","make":"Make12","model":"Model12","year":2011},{"id":13,"type":"SUV","make":"Make13","model":"Model13","year":2012},{"id":14,"type":"SUV","make":"Make14","model":"Model14","year":2013},{"id":15,"type":"SUV","make":"Make15","model":"Model15","year":2014},{"id":16,"type":"SUV","make":"Make16","model":"Model16","year":2015},{"id":17,"type":"SUV","make":"Make17","model":"Model17","year":2016},{"id":18,"type":"SUV","make":"Make18","model":"Model18","year":2017},{"id":19,"type":"SUV","make":"Make19","model":"Model19","year":2018},{"id":20,"type":"SUV","make":"Make20","model":"Model20","year":2019},{"id":21,"type":"SUV","make":"Make21","model":"Model21","year":2020},{"id":22,"type":"SUV","make":"Make22","model":"Model22","year":2021},{"id":23,"type":"SUV","make":"Make23","model":"Model23","year":2022},{"id":24,"type":"SUV","make":"Make24","model":"Model24","year":2023},{"id":25,"type":"SUV","make":"Make25","model":"Model25","year":2024},{"id":26,"type":"SUV","make":"Make26","model":"Model26","year":2025},{"id":27,"type":"SUV","make":"Make27","model":"Model27","year":2026}]
+      </div>
+    </shadow-table>
+  </section>
+
+  <section>
+    <h1>client side with light dom</h1>
+    <p>
+      Направа на web component чрез JS, като отново структурата остава отворена за ползвателя
+      Тук отново важат сходните предимства и недостатъци от предишните точки за light dom.
+      Единственото по-различно, че не трябва да мислим за двойната направа на HTML (server/client)
+    </p>
+
+    <p>
+      <button id="client-light">init</button>
+    </p>
+
+    <client-light-table page="1" pagesize="5">
+      <div style="display: none;">
+        [{"id":1,"type":"SUV","make":"Make1","model":"Model1","year":2000},{"id":2,"type":"SUV","make":"Make2","model":"Model2","year":2001},{"id":3,"type":"SUV","make":"Make3","model":"Model3","year":2002},{"id":4,"type":"SUV","make":"Make4","model":"Model4","year":2003},{"id":5,"type":"SUV","make":"Make5","model":"Model5","year":2004},{"id":6,"type":"SUV","make":"Make6","model":"Model6","year":2005},{"id":7,"type":"SUV","make":"Make7","model":"Model7","year":2006},{"id":8,"type":"SUV","make":"Make8","model":"Model8","year":2007},{"id":9,"type":"SUV","make":"Make9","model":"Model9","year":2008},{"id":10,"type":"SUV","make":"Make10","model":"Model10","year":2009},{"id":11,"type":"SUV","make":"Make11","model":"Model11","year":2010},{"id":12,"type":"SUV","make":"Make12","model":"Model12","year":2011},{"id":13,"type":"SUV","make":"Make13","model":"Model13","year":2012},{"id":14,"type":"SUV","make":"Make14","model":"Model14","year":2013},{"id":15,"type":"SUV","make":"Make15","model":"Model15","year":2014},{"id":16,"type":"SUV","make":"Make16","model":"Model16","year":2015},{"id":17,"type":"SUV","make":"Make17","model":"Model17","year":2016},{"id":18,"type":"SUV","make":"Make18","model":"Model18","year":2017},{"id":19,"type":"SUV","make":"Make19","model":"Model19","year":2018},{"id":20,"type":"SUV","make":"Make20","model":"Model20","year":2019},{"id":21,"type":"SUV","make":"Make21","model":"Model21","year":2020},{"id":22,"type":"SUV","make":"Make22","model":"Model22","year":2021},{"id":23,"type":"SUV","make":"Make23","model":"Model23","year":2022},{"id":24,"type":"SUV","make":"Make24","model":"Model24","year":2023},{"id":25,"type":"SUV","make":"Make25","model":"Model25","year":2024},{"id":26,"type":"SUV","make":"Make26","model":"Model26","year":2025},{"id":27,"type":"SUV","make":"Make27","model":"Model27","year":2026}]
+      </div>
+    </client-light-table>
+  </section>
+
+  <section>
+    <h1>client side with shadow dom</h1>
+    <p>
+      Стандартният вариант за направа на web component чрез JS и скриване на структурата и стиловете в shadow dom.
+      Отново сходни предимства/недостатъци.
+    </p>
+
+    <p>
+      <button id="client-shadow">init</button>
+    </p>
+
+    <client-shadow-table page="1" pagesize="5">
+      <div style="display: none;">
+        [{"id":1,"type":"SUV","make":"Make1","model":"Model1","year":2000},{"id":2,"type":"SUV","make":"Make2","model":"Model2","year":2001},{"id":3,"type":"SUV","make":"Make3","model":"Model3","year":2002},{"id":4,"type":"SUV","make":"Make4","model":"Model4","year":2003},{"id":5,"type":"SUV","make":"Make5","model":"Model5","year":2004},{"id":6,"type":"SUV","make":"Make6","model":"Model6","year":2005},{"id":7,"type":"SUV","make":"Make7","model":"Model7","year":2006},{"id":8,"type":"SUV","make":"Make8","model":"Model8","year":2007},{"id":9,"type":"SUV","make":"Make9","model":"Model9","year":2008},{"id":10,"type":"SUV","make":"Make10","model":"Model10","year":2009},{"id":11,"type":"SUV","make":"Make11","model":"Model11","year":2010},{"id":12,"type":"SUV","make":"Make12","model":"Model12","year":2011},{"id":13,"type":"SUV","make":"Make13","model":"Model13","year":2012},{"id":14,"type":"SUV","make":"Make14","model":"Model14","year":2013},{"id":15,"type":"SUV","make":"Make15","model":"Model15","year":2014},{"id":16,"type":"SUV","make":"Make16","model":"Model16","year":2015},{"id":17,"type":"SUV","make":"Make17","model":"Model17","year":2016},{"id":18,"type":"SUV","make":"Make18","model":"Model18","year":2017},{"id":19,"type":"SUV","make":"Make19","model":"Model19","year":2018},{"id":20,"type":"SUV","make":"Make20","model":"Model20","year":2019},{"id":21,"type":"SUV","make":"Make21","model":"Model21","year":2020},{"id":22,"type":"SUV","make":"Make22","model":"Model22","year":2021},{"id":23,"type":"SUV","make":"Make23","model":"Model23","year":2022},{"id":24,"type":"SUV","make":"Make24","model":"Model24","year":2023},{"id":25,"type":"SUV","make":"Make25","model":"Model25","year":2024},{"id":26,"type":"SUV","make":"Make26","model":"Model26","year":2025},{"id":27,"type":"SUV","make":"Make27","model":"Model27","year":2026}]
+      </div>
+    </client-shadow-table>
+  </section>
+
+  <section>
+    <h1>client side vs server side</h1>
+    <p>
+      Според мен предимствата и недостатъците при light dom/shadow dom са сходни и при двата подхода.
+      Разбира се има различия, които не са свързани с това дали крием структурата в shadow dom или не, а се отнасят до
+      начина, по който сме избрали да покажем страницата.
+    </p>
+
+    <h2>ssr</h2>
+    <p>
+      Голямото предимство, което дава SSR, че съдържанието на страницата може да е видимо дори при проблем със JS.
+      Работи се и по нова функционалност, която ще позволи SSR на компоненти - Declarative Shadow DOM.
+      Всъщност това е много близко до това да изпратим страницата със съдържание в light dom и в последвие да го скрием
+      в shadow dom. Това от своя страна трябва да подобри SEO за даден компонент.
+    </p>
+    <p>
+      Недостатъците при този подход, според мен, се свеждат до тези неща:
+    </p>
+    <ul>
+      <li>
+        възможно дублиране на логика за показване на елемента
+      </li>
+      <li>
+        избор на работещ вариант, който може да структурира нестандартни елементи на сървъра
+      </li>
+    </ul>
+
+    <h2>client</h2>
+    <p>
+      Ествествено това е решението за SPA, тъй като всичко останало работи по същия начин - цялото приложение се зарежда
+      от JS.
+      Най-простия вариант от имплементационна гледна точка.
+    </p>
+    <p>
+      Недостатъците при него най-често се свеждат до липса на SEO или невъзможност да бъде заредено съдържанието, заради
+      проблеми със JS.
+      Моята гледна точка е, че правилно направен компонент би следвало да показва важната инормация (текстове, картинки)
+      дори, когато има проблем с JS.
+      Това от своя страна е възможно чрез използване на така наречените slots.
+      От друга страна компонентите биха било подходящи за добавяне на интерактивност - ако искаме бутон с ефекти лесно
+      можем да направим нещо подобно:
+
+    <pre>
+        &lt;fancy-button role="button"&gt;trick or treat&lt;/fancy-button&gt;
+      </pre>
+    </p>
+
+  </section>
+
+  <script>
+    function ssr(tag, shadow) {
+      class SSRTable extends HTMLElement {
+        static observedAttributes = ["page"];
+
+        constructor() {
+          super();
+        }
+
+        // componentDidMount / React.useEffect(() => {}, [])
+        connectedCallback() {
+          const [table, data] = this.children;
+
+          if (shadow) {
+            this.attachShadow({ mode: "open" }); // cl
+            this.shadowRoot.append(table);
+          }
+
+          table.querySelector("[data-action=prev]").addEventListener('click', () => {
+            const page = Number(this.getAttribute('page'))
+            this.setAttribute('page', page - 1)
+          });
+
+          table.querySelector("[data-action=next]").addEventListener('click', () => {
+            const page = Number(this.getAttribute('page'))
+            this.setAttribute('page', page + 1)
+          });
+
+          this._data = JSON.parse(data.textContent);
+          this.removeChild(data);
+        }
+
+        // React.useEffect(() => {}, ['page'])
+        attributeChangedCallback(name, oldValue, newValue) {
+          if (!this._data) {
+            return;
+          }
+
+          const pageSize = Number(this.getAttribute('pagesize'))
+          const zeroBasedPage = newValue - 1;
+          const pageStart = zeroBasedPage * pageSize;
+          const pageEnd = pageStart + pageSize;
+          const paged = this._data.slice(pageStart, pageEnd);
+
+          let body = this.querySelector('tbody');
+
+          if (shadow) {
+            body = this.shadowRoot.querySelector('tbody');
+          }
+
+          body.innerHTML = paged.map(this.createRow).join('')
+        }
+
+        createRow(data) {
+          // client side rendering logic
+          return `
+          <tr>
+            <td class="sb-table__body-cell">${data.id}</td>
+            <td class="sb-table__body-cell">${data.type}</td>
+            <td class="sb-table__body-cell">${data.make}</td>
+            <td class="sb-table__body-cell">${data.model}</td>
+            <td class="sb-table__body-cell sb-table--align-end">${data.year}</td>
+          </tr>
+          `;
+        }
+      }
+
+      customElements.define(tag, SSRTable)
+    }
+
+
+    function client(tag, shadow) {
+      class ClientTable extends HTMLElement {
+        static observedAttributes = ["page"];
+
+        constructor() {
+          super();
+        }
+
+
+        connectedCallback() {
+          const [data] = this.children;
+          const div = document.createElement('div');
+
+          div.innerHTML = `
+            <table data-e2e="table" class="sb-table">
+              <thead class="sb-table__head">
+                <tr>
+                  <th class="sb-table__head-cell">ID</th>
+                  <th class="sb-table__head-cell">Type</th>
+                  <th class="sb-table__head-cell">Make</th>
+                  <th class="sb-table__head-cell">Model</th>
+                  <th class="sb-table__head-cell sb-table--align-end">Year</th>
+                </tr>
+              </thead>
+              <tbody class="sb-table__body">
+                <tr>
+                  <td class="sb-table__body-cell">1</td>
+                  <td class="sb-table__body-cell">SUV</td>
+                  <td class="sb-table__body-cell">Make1</td>
+                  <td class="sb-table__body-cell">Model1</td>
+                  <td class="sb-table__body-cell sb-table--align-end">2000</td>
+                </tr>
+                <tr>
+                  <td class="sb-table__body-cell">2</td>
+                  <td class="sb-table__body-cell">SUV</td>
+                  <td class="sb-table__body-cell">Make2</td>
+                  <td class="sb-table__body-cell">Model2</td>
+                  <td class="sb-table__body-cell sb-table--align-end">2001</td>
+                </tr>
+                <tr>
+                  <td class="sb-table__body-cell">3</td>
+                  <td class="sb-table__body-cell">SUV</td>
+                  <td class="sb-table__body-cell">Make3</td>
+                  <td class="sb-table__body-cell">Model3</td>
+                  <td class="sb-table__body-cell sb-table--align-end">2002</td>
+                </tr>
+                <tr>
+                  <td class="sb-table__body-cell">4</td>
+                  <td class="sb-table__body-cell">SUV</td>
+                  <td class="sb-table__body-cell">Make4</td>
+                  <td class="sb-table__body-cell">Model4</td>
+                  <td class="sb-table__body-cell sb-table--align-end">2003</td>
+                </tr>
+                <tr>
+                  <td class="sb-table__body-cell">5</td>
+                  <td class="sb-table__body-cell">SUV</td>
+                  <td class="sb-table__body-cell">Make5</td>
+                  <td class="sb-table__body-cell">Model5</td>
+                  <td class="sb-table__body-cell sb-table--align-end">2004</td>
+                </tr>
+                </tr>
+              </tbody>
+            </table>
+            <button data-action="prev">prev</button>
+            <button data-action="next">next</button>
+          `;
+
+          if (shadow) {
+            this.attachShadow({ mode: "open" })
+            this.shadowRoot.append(div)
+          } else {
+            this.appendChild(div)
+          }
+
+          div.querySelector("[data-action=prev]").addEventListener('click', () => {
+            const page = Number(this.getAttribute('page'))
+            this.setAttribute('page', page - 1)
+          });
+
+          div.querySelector("[data-action=next]").addEventListener('click', () => {
+            const page = Number(this.getAttribute('page'))
+            this.setAttribute('page', page + 1)
+          });
+
+          this._data = JSON.parse(data.textContent);
+          this.removeChild(data);
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          if (!this._data) {
+            return;
+          }
+
+          const pageSize = Number(this.getAttribute('pagesize'))
+          const zeroBasedPage = newValue - 1;
+          const pageStart = zeroBasedPage * pageSize;
+          const pageEnd = pageStart + pageSize;
+          const paged = this._data.slice(pageStart, pageEnd);
+
+          let body = this.querySelector('tbody');
+
+          if (shadow) {
+            body = this.shadowRoot.querySelector('tbody');
+          }
+
+          body.innerHTML = paged.map(this.createRow).join('')
+        }
+
+        createRow(data) {
+          // client side rendering logic
+          return `
+          <tr>
+            <td class="sb-table__body-cell">${data.id}</td>
+            <td class="sb-table__body-cell">${data.type}</td>
+            <td class="sb-table__body-cell">${data.make}</td>
+            <td class="sb-table__body-cell">${data.model}</td>
+            <td class="sb-table__body-cell sb-table--align-end">${data.year}</td>
+          </tr>
+          `;
+        }
+      }
+
+      componentWillUnmount
+      React.useEffect()
+
+      customElements.define(tag, ClientTable)
+    }
+
+    // document.querySelector('#light-ssr').onclick = () => ssr('light-table');
+    // document.querySelector('#shadow-ssr').onclick = () => ssr('shadow-table', true);
+
+    // document.querySelector('#client-light').onclick = () => client('client-light-table');
+    // document.querySelector('#client-shadow').onclick = () => client('client-shadow-table', true);
+  </script>
+</body>
+
+</html>
